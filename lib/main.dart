@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-
 void main() {
   runApp(const SemanticsBuilderDemo());
   SemanticsBinding.instance.ensureSemantics();
@@ -74,6 +73,10 @@ class _HomePageState extends State<HomePage> {
 
             // Example 3: Multilingual Support
             _buildMultilingualExample(),
+            const SizedBox(height: 16),
+
+            // Example 4: Manual Multilingual Support
+            _buildManualMultilingualExample(),
             const SizedBox(height: 16),
 
             // Example 4: Shopping Cart Item
@@ -256,11 +259,18 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                '🌍 Multilingual Support Example',
+                '🌍 Multilingual Support Example with SemanticsLabelBuilder',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               const Text('Mixed text directions (LTR/RTL) handled automatically:'),
+              const Text('SemanticsLabelBuilder()\n'
+                  '  ..addPart(\'Welcome\', textDirection: TextDirection.ltr)\n'
+                  '  ..addPart(\'欢迎\', textDirection: TextDirection.ltr)\n'
+                  '  ..addPart(\'مرحبا\', textDirection: TextDirection.rtl)\n'
+                  '  ..addPart(\'स्वागत है\', textDirection: TextDirection.ltr)\n'
+                  '  ..addPart(\'to our global app\', textDirection: TextDirection.ltr)\n'
+                  '  .build();'),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.all(12),
@@ -276,6 +286,50 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 8),
               Text(
                 'Semantic label: "${multilingualLabel.label}"',
+                style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+    Widget _buildManualMultilingualExample() {
+    // Demonstrating RTL/LTR text direction handling
+    final manualMultilingualLabel = 'Welcome 欢迎 مرحبا स्वागत है to our global app';
+
+    return Card(
+      child: Semantics(
+        label: manualMultilingualLabel,
+        explicitChildNodes: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                '🌍  Multilingual Support Example with manual string concatenation',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              const Text('Mixed text directions handled manually:'),
+              const Text('final manualMultilingualLabel = "Welcome 欢迎 مرحبا स्वागत है to our global app";'),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.blue[50],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Welcome 欢迎 مرحبا स्वागत है to our global app',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Semantic label: "$manualMultilingualLabel"',
                 style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
               ),
             ],
