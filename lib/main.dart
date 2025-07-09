@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMultilingualExample() {
     // Demonstrating RTL/LTR text direction handling
-    final SemanticsLabel multilingualLabel = (SemanticsLabelBuilder()
+    final SemanticsLabel multilingualLabel = (SemanticsLabelBuilder(textDirection: TextDirection.ltr)
       ..addPart('Welcome', textDirection: TextDirection.ltr)
       ..addPart('欢迎', textDirection: TextDirection.ltr) // Chinese "Welcome"
       ..addPart('مرحبا', textDirection: TextDirection.rtl) // Arabic "Welcome"
@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 8),
               const Text('Mixed text directions (LTR/RTL) handled automatically:'),
-              const Text('SemanticsLabelBuilder()\n'
+              const Text('SemanticsLabelBuilder(textDirection: TextDirection.ltr)\n'
                   '  ..addPart(\'Welcome\', textDirection: TextDirection.ltr)\n'
                   '  ..addPart(\'欢迎\', textDirection: TextDirection.ltr)\n'
                   '  ..addPart(\'مرحبا\', textDirection: TextDirection.rtl)\n'
